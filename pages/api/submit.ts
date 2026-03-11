@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { activeQuiz } from '@/data/quizData';
-import { appendQuizSubmission } from '@/lib/googleSheets';
+import { insertQuizSubmission } from '@/lib/postgres';
 import { formatPercentage, getCurrentDateParts } from '@/lib/utils';
 
 type Body = {
@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const dateParts = getCurrentDateParts();
 
-    await appendQuizSubmission({
+    await insertQuizSubmission({
       ...dateParts,
       homeroom,
       score,

@@ -1,6 +1,6 @@
 # InvestED Club Quiz Website
 
-Production-ready daily quiz web app for **InvestED Club** using **Next.js**, **TypeScript**, **Tailwind CSS**, **Framer Motion**, **Recharts**, and **Google Sheets API**.
+Production-ready daily quiz website for **InvestED Club** using **Next.js**, **TypeScript**, **Tailwind CSS**, **Framer Motion**, **Recharts**, and **Railway Postgres**.
 
 ## Features
 - premium dark mobile-first design
@@ -9,10 +9,11 @@ Production-ready daily quiz web app for **InvestED Club** using **Next.js**, **T
 - one active quiz configured from a single file
 - one-question-at-a-time flow with instant feedback
 - animated floating progress graph reacting to answers
+- live homeroom leaderboard panel
 - end screen with score, percentage, and confetti
-- Google Sheets logging for every submission
+- Railway Postgres logging for every submission
 - simple daily updates via `data/quizData.ts`
-- deployable on Vercel
+- deployable on Railway or Vercel
 
 ## Project Structure
 ```text
@@ -21,13 +22,16 @@ components/
   FloatingGraph.tsx
   HeroBackground.tsx
   Layout.tsx
+  LiveLeaderboard.tsx
   ProgressBar.tsx
 data/
   quizData.ts
 lib/
-  googleSheets.ts
+  liveStore.ts
+  postgres.ts
   utils.ts
 pages/
+  api/live-score.ts
   api/submit.ts
   _app.tsx
   index.tsx
@@ -49,7 +53,7 @@ Change these fields:
 - `quizId`
 - `dateLabel`
 - `accessCode`
-- `homerooms` (if needed)
+- `homerooms` if needed
 - `questions`
 
 Each question uses:
@@ -68,51 +72,43 @@ In `data/quizData.ts`, update:
 ```ts
 accessCode: 'NEWCODE'
 ```
-The same site URL can stay unchanged.
 
 ## 4) How to Reset for a New Day
-Just replace the quiz content in `data/quizData.ts` and redeploy on Vercel.
+Replace the quiz content in `data/quizData.ts` and redeploy.
 
-That is the only daily reset needed.
+## 5) Connect Railway Postgres
+Add a PostgreSQL database in the same Railway project as your web app.
 
-## 5) Connect Google Sheets
-Create a Google Sheet with headers in row 1:
-```text
-Timestamp | Date | Weekday | Homeroom | Score | Total Questions | Percentage Correct
-```
+Railway usually provides a `DATABASE_URL` variable automatically.
 
-### Create a Google service account
-1. Open Google Cloud Console.
-2. Create a project.
-3. Enable the **Google Sheets API**.
-4. Create a **Service Account**.
-5. Generate a JSON key.
-6. Share the Google Sheet with the service account email as an editor.
-
-### Add environment variables in Vercel
-Use these values from the service account JSON:
+Add this environment variable to your app service if it is not already present:
 
 ```bash
-GOOGLE_SERVICE_ACCOUNT_EMAIL=your-service-account@project.iam.gserviceaccount.com
-GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
-GOOGLE_SHEETS_SPREADSHEET_ID=your_sheet_id
-GOOGLE_SHEETS_RANGE=Sheet1!A:G
+DATABASE_URL=postgresql://...
 ```
 
-### Find Spreadsheet ID
-In the Google Sheet URL:
-```text
-https://docs.google.com/spreadsheets/d/SPREADSHEET_ID/edit#gid=0
+The app will automatically create this table on first submission:
+
+```sql
+CREATE TABLE IF NOT EXISTS quiz_submissions (
+  id BIGSERIAL PRIMARY KEY,
+  timestamp_utc TEXT NOT NULL,
+  date_label TEXT NOT NULL,
+  weekday TEXT NOT NULL,
+  homeroom TEXT NOT NULL,
+  score INTEGER NOT NULL,
+  total_questions INTEGER NOT NULL,
+  percentage_correct TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
 ```
 
-## 6) Deploy on Vercel
-1. Push this project to GitHub.
-2. Import the repository into Vercel.
-3. Add the environment variables above.
-4. Click **Deploy**.
+## 6) Redeploy After Environment Changes
+If you add or change `DATABASE_URL`, redeploy the Railway service.
 
 ## Notes
 - The app validates the access code before quiz start and again on result submission.
-- Results are appended as new rows to the sheet.
+- Results are inserted into Postgres as one row per completed submission.
 - The graph is motivational only and does not affect scoring.
-- For best reliability, keep the quiz file simple and only update one active quiz at a time.
+- For best reliability, keep one active quiz in `data/quizData.ts`.
+- The current live leaderboard preview uses in-memory server state. For stronger production live syncing later, it can also be moved into Postgres.
