@@ -18,13 +18,15 @@ function createSmoothSeries(values: number[]) {
     const next = values[index + 1];
 
     series.push({ step: index + 1, value: current });
-    series.push({ step: index + 1.1, value: current + (next - current) * 0.16 });
-    series.push({ step: index + 1.22, value: current + (next - current) * 0.32 });
-    series.push({ step: index + 1.36, value: current + (next - current) * 0.5 });
-    series.push({ step: index + 1.5, value: current + (next - current) * 0.66 });
-    series.push({ step: index + 1.64, value: current + (next - current) * 0.8 });
-    series.push({ step: index + 1.78, value: current + (next - current) * 0.9 });
-    series.push({ step: index + 1.9, value: current + (next - current) * 0.97 });
+    series.push({ step: index + 1.06, value: current + (next - current) * 0.1 });
+    series.push({ step: index + 1.14, value: current + (next - current) * 0.2 });
+    series.push({ step: index + 1.24, value: current + (next - current) * 0.32 });
+    series.push({ step: index + 1.36, value: current + (next - current) * 0.46 });
+    series.push({ step: index + 1.5, value: current + (next - current) * 0.6 });
+    series.push({ step: index + 1.64, value: current + (next - current) * 0.74 });
+    series.push({ step: index + 1.76, value: current + (next - current) * 0.86 });
+    series.push({ step: index + 1.86, value: current + (next - current) * 0.94 });
+    series.push({ step: index + 1.94, value: current + (next - current) * 0.985 });
   }
 
   series.push({ step: values.length, value: values[values.length - 1] });
@@ -81,7 +83,7 @@ export function FloatingGraph({ values, lastResult }: FloatingGraphProps) {
               strokeWidth={3.5}
               fill="url(#graphFill)"
               isAnimationActive
-              animationDuration={1150}
+              animationDuration={1550}
               animationEasing="ease-in-out"
             />
           </AreaChart>

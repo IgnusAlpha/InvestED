@@ -105,8 +105,9 @@ export default function HomePage() {
 
     setGraphValues((prev) => {
       const last = prev[prev.length - 1] ?? 42;
-      const drift = Math.sin(prev.length * 0.9) * 1.5;
-      const next = isCorrect ? Math.min(100, last + 9 + drift) : Math.max(8, last - 7 + drift);
+      const drift = Math.sin(prev.length * 0.7) * 0.9;
+      const rise = isCorrect ? 7.6 : -5.8;
+      const next = Math.max(8, Math.min(100, last + rise + drift));
       return [...prev, Math.round(next * 10) / 10];
     });
 
