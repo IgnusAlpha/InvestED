@@ -113,6 +113,8 @@ export default function HomePage() {
 
     void pushLiveLeaderboard(nextScore, answered);
 
+    const revealDelay = isCorrect ? 1100 : 3000;
+
     window.setTimeout(async () => {
       const isLastQuestion = questionIndex === totalQuestions - 1;
 
@@ -147,7 +149,7 @@ export default function HomePage() {
         setSelectedIndex(null);
         setAnswerState(null);
       }
-    }, 1100);
+    }, revealDelay);
   };
 
   const resetForNewDay = () => {
@@ -310,7 +312,7 @@ export default function HomePage() {
                       ))}
                     </div>
 
-                    <div className="min-h-14 text-sm text-slate-300">
+                    <div className="min-h-20 text-sm leading-6 text-slate-300">
                       {answerState && (
                         <p className={answerState === 'correct' ? 'text-emerald-300' : 'text-rose-300'}>
                           {answerState === 'correct'
