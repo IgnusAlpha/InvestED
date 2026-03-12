@@ -197,8 +197,8 @@ export default function HomePage() {
                   <p className="mb-4 text-xs uppercase tracking-[0.45em] text-cyan-300/80">Global Money Week</p>
                   <h1 className="text-5xl font-semibold tracking-tight text-white sm:text-7xl">{activeQuiz.title}</h1>
                   <p className="mt-4 text-lg text-slate-300 sm:text-2xl">{activeQuiz.subtitle}</p>
-                  <p className="mt-6 max-w-xl text-sm leading-7 text-slate-400 sm:text-base">
-                    One sharp daily challenge. Fast on mobile, visually polished, and built to make financial literacy feel exciting.
+                  <p className="mt-6 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
+                    Take on the daily challenge and earn points for your homeroom. The homeroom with the strongest total performance by the end of the week wins a pizza party.
                   </p>
                   <motion.button
                     whileHover={{ scale: 1.03 }}
