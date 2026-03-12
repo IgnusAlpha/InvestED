@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { activeQuiz } from '@/data/quizData';
 import { getLiveLeaderboard, upsertLiveHomeroom } from '@/lib/liveStore';
+import { getMaltaSchoolLeaderboardKey } from '@/lib/utils';
 
 type Body = {
   homeroom?: string;
@@ -10,8 +11,10 @@ type Body = {
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  const leaderboardKey = getMaltaSchoolLeaderboardKey();
+
   if (req.method === 'GET') {
-    return res.status(200).json({ leaderboard: getLiveLeaderboard(activeQuiz.quizId) });
+    return res.status(200).json({ leaderboard: getLiveLeaderboard(activeQuiz.quizId, leaderboardKey) });
   }
 
   if (req.method !== 'POST') {
@@ -34,11 +37,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   upsertLiveHomeroom({
     quizId: activeQuiz.quizId,
+    leaderboardKey,
     homeroom,
     score,
     answered,
     totalQuestions: activeQuiz.questions.length,
   });
 
-  return res.status(200).json({ leaderboard: getLiveLeaderboard(activeQuiz.quizId) });
+  return res.status(200).json({ leaderboard: getLiveLeaderboard(activeQuiz.quizId, leaderboardKey) });
 }

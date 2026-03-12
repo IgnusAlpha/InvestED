@@ -12,6 +12,10 @@ type StoreShape = {
   byQuiz: Record<string, Record<string, HomeroomState>>;
 };
 
+function getScopedQuizId(quizId: string, leaderboardKey: string) {
+  return `${quizId}::${leaderboardKey}`;
+}
+
 function getStore(): StoreShape {
   const globalWithStore = globalThis as typeof globalThis & { [GLOBAL_KEY]?: StoreShape };
 
@@ -24,18 +28,20 @@ function getStore(): StoreShape {
 
 export function upsertLiveHomeroom(params: {
   quizId: string;
+  leaderboardKey: string;
   homeroom: string;
   score: number;
   answered: number;
   totalQuestions: number;
 }) {
   const store = getStore();
+  const scopedQuizId = getScopedQuizId(params.quizId, params.leaderboardKey);
 
-  if (!store.byQuiz[params.quizId]) {
-    store.byQuiz[params.quizId] = {};
+  if (!store.byQuiz[scopedQuizId]) {
+    store.byQuiz[scopedQuizId] = {};
   }
 
-  store.byQuiz[params.quizId][params.homeroom] = {
+  store.byQuiz[scopedQuizId][params.homeroom] = {
     homeroom: params.homeroom,
     score: params.score,
     answered: params.answered,
@@ -44,9 +50,10 @@ export function upsertLiveHomeroom(params: {
   };
 }
 
-export function getLiveLeaderboard(quizId: string) {
+export function getLiveLeaderboard(quizId: string, leaderboardKey: string) {
   const store = getStore();
-  const entries = Object.values(store.byQuiz[quizId] || {});
+  const scopedQuizId = getScopedQuizId(quizId, leaderboardKey);
+  const entries = Object.values(store.byQuiz[scopedQuizId] || {});
 
   return entries
     .map((entry) => ({

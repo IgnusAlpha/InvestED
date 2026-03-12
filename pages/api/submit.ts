@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { activeQuiz } from '@/data/quizData';
 import { insertQuizSubmission } from '@/lib/postgres';
-import { formatPercentage, getCurrentDateParts } from '@/lib/utils';
+import { formatPercentage, getCurrentDateParts, getSubmissionWindowMessage, isWithinSubmissionWindow } from '@/lib/utils';
 
 type Body = {
   homeroom?: string;
@@ -28,6 +28,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (accessCode.trim() !== activeQuiz.accessCode) {
       return res.status(403).json({ message: 'Incorrect access code.' });
+    }
+
+    if (!isWithinSubmissionWindow()) {
+      return res.status(403).json({ message: getSubmissionWindowMessage() });
     }
 
     const dateParts = getCurrentDateParts();
