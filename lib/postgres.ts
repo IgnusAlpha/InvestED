@@ -50,9 +50,25 @@ async function ensureTable() {
       percentage_correct TEXT NOT NULL,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     );
+
+    CREATE TABLE IF NOT EXISTS page_visits (
+      id BIGSERIAL PRIMARY KEY,
+      date_label TEXT NOT NULL,
+      user_agent TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
   `);
 
   initialized = true;
+}
+
+export async function insertPageVisit(dateLabel: string, userAgent: string) {
+  await ensureTable();
+  const pool = getPool();
+  await pool.query(
+    `INSERT INTO page_visits (date_label, user_agent) VALUES ($1, $2)`,
+    [dateLabel, userAgent],
+  );
 }
 
 export async function insertQuizSubmission(row: SubmissionRow) {

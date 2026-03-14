@@ -39,6 +39,10 @@ export default function HomePage() {
   const percentage = useMemo(() => formatPercentage(score, totalQuestions), [score, totalQuestions]);
 
   useEffect(() => {
+    void fetch('/api/track-visit', { method: 'POST' });
+  }, []);
+
+  useEffect(() => {
     const loadLeaderboard = async () => {
       try {
         const response = await fetch('/api/live-score');
