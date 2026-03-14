@@ -8,8 +8,10 @@ import { HeroBackground } from '@/components/HeroBackground';
 import { Layout } from '@/components/Layout';
 import { LiveLeaderboard, LeaderboardEntry } from '@/components/LiveLeaderboard';
 import { ProgressBar } from '@/components/ProgressBar';
+import { WeeklyMarquee } from '@/components/WeeklyMarquee';
 import { activeQuiz } from '@/data/quizData';
 import { formatPercentage } from '@/lib/utils';
+import type { WeeklyEntry } from '@/pages/api/weekly-leaderboard';
 
 type Stage = 'landing' | 'entry' | 'quiz' | 'complete';
 type AnswerState = 'correct' | 'incorrect' | null;
@@ -30,6 +32,7 @@ export default function HomePage() {
   const [saveError, setSaveError] = useState('');
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [leaderboardError, setLeaderboardError] = useState('');
+  const [weeklyEntries, setWeeklyEntries] = useState<WeeklyEntry[]>([]);
 
   const currentQuestion = activeQuiz.questions[questionIndex];
   const totalQuestions = activeQuiz.questions.length;
@@ -49,6 +52,23 @@ export default function HomePage() {
 
     void loadLeaderboard();
     const interval = window.setInterval(loadLeaderboard, 2500);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const loadWeekly = async () => {
+      try {
+        const response = await fetch('/api/weekly-leaderboard');
+        if (!response.ok) return;
+        const data = (await response.json()) as { entries?: WeeklyEntry[] };
+        setWeeklyEntries(data.entries || []);
+      } catch {
+        // silent
+      }
+    };
+
+    void loadWeekly();
+    const interval = window.setInterval(loadWeekly, 30000);
     return () => window.clearInterval(interval);
   }, []);
 
@@ -176,6 +196,8 @@ export default function HomePage() {
 
       <Layout>
         {stage === 'complete' && <Confetti recycle={false} numberOfPieces={180} gravity={0.08} colors={['#67e8f9', '#4ade80', '#a78bfa']} />}
+
+        <WeeklyMarquee entries={weeklyEntries} />
 
         <main className="relative flex min-h-[calc(100vh-3rem)] flex-1 items-center justify-center py-8">
           <HeroBackground />
