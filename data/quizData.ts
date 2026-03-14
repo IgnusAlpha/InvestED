@@ -28,7 +28,7 @@ export const activeQuiz: QuizConfig = {
   subtitle: 'Global Money Week Quiz',
   dateLabel: 'Global Money Week - Day 1',
   accessCode: 'MONEYWEEK',
-  homerooms: ['S1 - Newton', 'S1 - Curie', 'S2 - Franklin', 'S2 - Mandela', 'S3 - Turing', 'S4 - Angelou'],
+  homerooms: ['9V', '9I', '9S', '10V', '10I', '10S', '11V', '11I', '11S', '12V', '12I', '12S'],
   questions: [
     {
       id: 'q1',
