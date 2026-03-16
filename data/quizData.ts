@@ -18,9 +18,9 @@ export type QuizConfig = {
 
 /**
  * DAILY UPDATE GUIDE
- * 1. Replace dateLabel, accessCode, and questions below.
- * 2. Keep exactly one active quiz in this file.
- * 3. Deploy again to Vercel after editing.
+ * 1. Replace quizId, dateLabel, accessCode, and questions below.
+ * 2. Keep exactly 4 questions per day.
+ * 3. Push to GitHub and redeploy on Railway.
  */
 export const activeQuiz: QuizConfig = {
   quizId: 'gmw-day-1',
@@ -35,56 +35,28 @@ export const activeQuiz: QuizConfig = {
       prompt: 'What does a budget help you do?',
       choices: ['Spend faster', 'Track income and expenses', 'Avoid saving money', 'Borrow more often'],
       correctIndex: 1,
-      explanation: 'A budget helps you plan where your money goes.',
+      explanation: 'A budget helps you plan where your money goes so you stay in control of your finances.',
     },
     {
       id: 'q2',
-      prompt: 'Which option is usually the safest place to keep emergency savings?',
-      choices: ['A savings account', 'A video game account', 'Cash hidden randomly', 'A risky meme coin'],
+      prompt: 'Which is usually the safest place to keep emergency savings?',
+      choices: ['A savings account', 'A video game account', 'Cash hidden at home', 'A risky investment'],
       correctIndex: 0,
-      explanation: 'Emergency savings should be easy to access and low risk.',
+      explanation: 'A savings account is low risk and easy to access when you need it most.',
     },
     {
       id: 'q3',
-      prompt: 'If you earn interest on both your original savings and past interest, that is called:',
-      choices: ['Inflation', 'Compound interest', 'Taxation', 'Depreciation'],
+      prompt: 'What is compound interest?',
+      choices: ['Paying tax on savings', 'Earning interest on your interest', 'A fee for spending money', 'A type of loan'],
       correctIndex: 1,
-      explanation: 'Compound interest means interest earns interest over time.',
+      explanation: 'Compound interest means your interest earns more interest over time, growing your money faster.',
     },
     {
       id: 'q4',
-      prompt: 'Why is it risky to spend all your money as soon as you receive it?',
-      choices: ['You may have nothing left for needs or emergencies', 'It improves your credit score', 'It lowers prices', 'It guarantees future income'],
+      prompt: 'A "need" is best described as:',
+      choices: ['Something essential like food or transport', 'Anything trending online', 'Something bought for fun', 'Any item with a discount'],
       correctIndex: 0,
-      explanation: 'Keeping some money aside gives you flexibility and security.',
-    },
-    {
-      id: 'q5',
-      prompt: 'What is the main benefit of comparing prices before buying something?',
-      choices: ['It makes products disappear', 'It helps you find better value', 'It removes taxes', 'It increases your debt'],
-      correctIndex: 1,
-      explanation: 'Comparing prices helps you make smarter buying decisions.',
-    },
-    {
-      id: 'q6',
-      prompt: 'A need is best described as:',
-      choices: ['Something essential like food or transport', 'Anything trending online', 'Any item with a discount', 'Something bought for fun'],
-      correctIndex: 0,
-      explanation: 'Needs are essential items required for daily living.',
-    },
-    {
-      id: 'q7',
-      prompt: 'What should you check before borrowing money?',
-      choices: ['The interest rate and repayment terms', 'Only the logo', 'Whether your friends borrowed too', 'Just the color of the card'],
-      correctIndex: 0,
-      explanation: 'You should understand the total cost and terms before borrowing.',
-    },
-    {
-      id: 'q8',
-      prompt: 'Which habit can help build wealth over time?',
-      choices: ['Saving regularly', 'Ignoring bank balances', 'Buying things impulsively', 'Spending every bonus immediately'],
-      correctIndex: 0,
-      explanation: 'Consistent saving can compound into meaningful progress.',
+      explanation: 'Needs are things required for everyday life. Wants are extras. Knowing the difference helps you budget smarter.',
     },
   ],
 };
