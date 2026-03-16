@@ -32,10 +32,10 @@ export const activeQuiz: QuizConfig = {
   questions: [
     {
       id: 'q1',
-      prompt: 'A stock is trading at €50 and the company earns €5 per share. What is its Price-to-Earnings (P/E) ratio?',
-      choices: ['5', '250', '45', '10'],
-      correctIndex: 3,
-      explanation: 'The P/E ratio = share price divided by earnings per share. €50 divided by €5 = 10. Investors use the P/E ratio to judge whether a stock is cheap or expensive relative to its earnings.',
+      prompt: 'A stock trades at €80. Current earnings per share are €4, but analysts forecast next year\'s earnings at €5 per share. What is the forward P/E ratio?',
+      choices: ['20', '16', '25', '4'],
+      correctIndex: 1,
+      explanation: 'Forward P/E uses forecast earnings, not current ones. €80 divided by €5 = 16. Using current earnings gives you 20, which is the trailing P/E. Investors prefer forward P/E when assessing future value.',
     },
     {
       id: 'q2',
