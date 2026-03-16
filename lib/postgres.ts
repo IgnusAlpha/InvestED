@@ -71,6 +71,16 @@ export async function insertPageVisit(dateLabel: string, userAgent: string) {
   );
 }
 
+export async function hasSubmissionToday(homeroom: string, dateLabel: string): Promise<boolean> {
+  await ensureTable();
+  const pool = getPool();
+  const result = await pool.query<{ count: string }>(
+    `SELECT COUNT(*) AS count FROM quiz_submissions WHERE homeroom = $1 AND date_label = $2`,
+    [homeroom, dateLabel],
+  );
+  return Number(result.rows[0]?.count ?? 0) > 0;
+}
+
 export async function insertQuizSubmission(row: SubmissionRow) {
   await ensureTable();
 

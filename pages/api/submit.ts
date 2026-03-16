@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { activeQuiz } from '@/data/quizData';
-import { insertQuizSubmission } from '@/lib/postgres';
+import { hasSubmissionToday, insertQuizSubmission } from '@/lib/postgres';
 import { formatPercentage, getCurrentDateParts, getSubmissionWindowMessage, isWithinSubmissionWindow } from '@/lib/utils';
 
 type Body = {
@@ -35,6 +35,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const dateParts = getCurrentDateParts();
+
+    const alreadySubmitted = await hasSubmissionToday(homeroom, dateParts.date);
+    if (alreadySubmitted) {
+      return res.status(409).json({ message: 'This homeroom has already submitted today.' });
+    }
 
     await insertQuizSubmission({
       ...dateParts,
