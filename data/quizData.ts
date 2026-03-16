@@ -32,10 +32,10 @@ export const activeQuiz: QuizConfig = {
   questions: [
     {
       id: 'q1',
-      prompt: 'You bought concert tickets for €200 but feel too sick to go. What does smart financial thinking say?',
-      choices: ['Go anyway since you already paid and should not waste it', 'The €200 is gone either way - only decide based on how you feel tonight', 'Ask the government to reimburse you as a medical expense', 'Add the €200 to next month\'s savings to recover the loss'],
-      correctIndex: 1,
-      explanation: 'This is the sunk cost fallacy. The €200 is spent regardless of what you do next. Good financial decisions ignore past costs that cannot be recovered and focus only on future value.',
+      prompt: 'A stock is trading at €50 and the company earns €5 per share. What is its Price-to-Earnings (P/E) ratio?',
+      choices: ['5', '250', '45', '10'],
+      correctIndex: 3,
+      explanation: 'The P/E ratio = share price divided by earnings per share. €50 divided by €5 = 10. Investors use the P/E ratio to judge whether a stock is cheap or expensive relative to its earnings.',
     },
     {
       id: 'q2',
