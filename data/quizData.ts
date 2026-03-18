@@ -32,10 +32,10 @@ export const activeQuiz: QuizConfig = {
   questions: [
     {
       id: 'q1',
-      prompt: 'What is the difference between gross income and net income?',
-      choices: ['Gross is your annual salary, net is your monthly take-home', 'Gross is income before deductions, net is what you actually receive after tax', 'Net is your total earnings, gross is what remains after expenses', 'They are the same unless you are self-employed'],
+      prompt: 'What does it mean to have a good credit score?',
+      choices: ['You have more savings than debt', 'Lenders see you as reliable and are more likely to offer you better rates', 'You have never borrowed money in your life', 'Your income is above the national average'],
       correctIndex: 1,
-      explanation: 'Gross income is your total earnings before anything is deducted. Net income is what lands in your account after tax and other deductions. Most people confuse the two when budgeting.',
+      explanation: 'A credit score measures how reliably you have repaid money in the past. A high score makes lenders trust you more, which can get you lower interest rates on loans and better credit card deals.',
     },
     {
       id: 'q2',
