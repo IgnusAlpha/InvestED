@@ -14,6 +14,7 @@ export type QuizConfig = {
   accessCode: string;
   homerooms: string[];
   questions: QuizQuestion[];
+  isFinalDay?: boolean;
 };
 
 /**
@@ -23,40 +24,41 @@ export type QuizConfig = {
  * 3. Push to GitHub and redeploy on Railway.
  */
 export const activeQuiz: QuizConfig = {
-  quizId: 'gmw-day-3',
+  quizId: 'gmw-day-4',
   title: 'InvestED',
   subtitle: 'Global Money Week Quiz',
-  dateLabel: 'Global Money Week - Day 3',
+  dateLabel: 'Global Money Week - Final Day',
   accessCode: 'MONEYWEEK',
+  isFinalDay: true,
   homerooms: ['9V', '9I', '9S', '10V', '10I', '10S', '11V', '11I', '11S', '12V', '12I', '12S'],
   questions: [
     {
       id: 'q1',
-      prompt: 'What does it mean to have a good credit score?',
-      choices: ['You have more savings than debt', 'Lenders see you as reliable and are more likely to offer you better rates', 'You have never borrowed money in your life', 'Your income is above the national average'],
+      prompt: 'What does ROI stand for, and what does it measure?',
+      choices: ['Rate of Inflation - how fast prices rise each year', 'Return on Investment - how much profit you made relative to what you put in', 'Risk of Insolvency - the likelihood a company cannot pay its debts', 'Revenue over Income - the ratio of sales to total earnings'],
       correctIndex: 1,
-      explanation: 'A credit score measures how reliably you have repaid money in the past. A high score makes lenders trust you more, which can get you lower interest rates on loans and better credit card deals.',
+      explanation: 'ROI is one of the most commonly used measures in finance. It tells you how efficient an investment was. If you put in €100 and got back €120, your ROI is 20%.',
     },
     {
       id: 'q2',
-      prompt: 'What does it mean when a stock is described as overvalued?',
-      choices: ['The company is performing exceptionally well above expectations', 'The stock has recently split, making each share cost more', 'The share price is trading higher than the company\'s fundamentals justify', 'The company has issued too many shares to the public'],
+      prompt: 'What is the main purpose of a pension?',
+      choices: ['A short-term savings account for large purchases', 'A government fine paid throughout your working life', 'A long-term savings plan that provides income when you retire', 'An insurance policy that pays out if you lose your job'],
       correctIndex: 2,
-      explanation: 'Overvalued means investors are paying more for the stock than the company\'s actual earnings, assets, or growth prospects warrant. It is a signal to be cautious, not a sign of strength.',
+      explanation: 'A pension is built up over your working years so that when you stop working you still have a regular income. Starting contributions early makes an enormous difference to what you end up with.',
     },
     {
       id: 'q3',
-      prompt: 'What best describes a bull market?',
-      choices: ['A short period of high volatility before a major crash', 'A market dominated by large institutional investors buying in bulk', 'A sustained period of rising prices and growing investor confidence', 'A market where only government bonds are performing well'],
+      prompt: 'What does it mean when a company "goes public"?',
+      choices: ['The company is being investigated by a financial regulator', 'The company releases its annual results to the media', 'The company offers shares to the public on a stock exchange for the first time', 'The company expands its operations into international markets'],
       correctIndex: 2,
-      explanation: 'A bull market means prices are generally rising and investors are optimistic. The opposite is a bear market, where prices are falling. Both terms are used constantly in financial news.',
+      explanation: 'Going public, also called an IPO (Initial Public Offering), means a private company sells shares to outside investors for the first time. It is a major milestone and raises large amounts of capital.',
     },
     {
       id: 'q4',
-      prompt: 'What is the main function of a stock exchange?',
-      choices: ['To set interest rates and control the money supply', 'To insure investors against losses on their portfolios', 'To provide a regulated marketplace where shares can be bought and sold', 'To issue new currency on behalf of the government'],
-      correctIndex: 2,
-      explanation: 'A stock exchange like the NYSE or London Stock Exchange is simply a regulated platform connecting buyers and sellers of shares. It does not set rates, issue money, or protect against losses.',
+      prompt: 'Which statement about risk and return in investing is most accurate?',
+      choices: ['Higher risk always guarantees higher returns', 'Risk and return have no proven relationship in modern markets', 'Lower risk investments always lose money over time', 'Generally, higher potential returns come with higher potential risk'],
+      correctIndex: 3,
+      explanation: 'The risk-return tradeoff is a core investing principle. You cannot expect big returns without accepting more risk. Safe investments like bonds offer stability but lower growth.',
     },
   ],
 };
