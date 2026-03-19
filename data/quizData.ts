@@ -30,7 +30,7 @@ export const activeQuiz: QuizConfig = {
   dateLabel: 'Global Money Week - Final Day',
   accessCode: 'MONEYWEEK',
   isFinalDay: true,
-  homerooms: ['9V', '9I', '9S', '10V', '10I', '10S', '11V', '11I', '11S', '12V', '12I', '12S'],
+  homerooms: ['9V', '9I', '9S', '10V', '10I', '10S', '11V', '11I', '11S', '12V', '12I', '12S', 'TEST'],
   questions: [
     {
       id: 'q1',

@@ -30,15 +30,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(403).json({ message: 'Incorrect access code.' });
     }
 
-    if (!isWithinSubmissionWindow()) {
+    const isTestHomeroom = homeroom === 'TEST';
+
+    if (!isTestHomeroom && !isWithinSubmissionWindow()) {
       return res.status(403).json({ message: getSubmissionWindowMessage() });
     }
 
     const dateParts = getCurrentDateParts();
 
-    const alreadySubmitted = await hasSubmissionToday(homeroom, dateParts.date);
-    if (alreadySubmitted) {
-      return res.status(409).json({ message: 'This homeroom has already submitted today.' });
+    if (!isTestHomeroom) {
+      const alreadySubmitted = await hasSubmissionToday(homeroom, dateParts.date);
+      if (alreadySubmitted) {
+        return res.status(409).json({ message: 'This homeroom has already submitted today.' });
+      }
     }
 
     await insertQuizSubmission({
